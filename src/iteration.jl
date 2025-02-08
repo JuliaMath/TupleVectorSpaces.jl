@@ -47,3 +47,7 @@ end
 # todo: support iteration on AdjointTupleVec?
 
 ##############################################################
+# todo: inverse of vec — reshaping a vector into a TupleVec
+# (given an instance, or a type if size information is in the type)
+
+##############################################################
