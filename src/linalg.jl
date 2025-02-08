@@ -17,6 +17,8 @@ for f in (:+, :-, :real, :imag, :complex, :conj, :float)
 end
 Base.:*(v::TupleVec, a::Number) = TupleVec(map(x -> x*a, _t(v)))
 Base.:*(a::Number, v::TupleVec) = TupleVec(map(x -> a*x, _t(v)))
+Base.:/(v::TupleVec, a::Number) = TupleVec(map(x -> x/a, _t(v)))
+Base.:\(a::Number, v::TupleVec) = TupleVec(map(x -> a\x, _t(v)))
 
 for f in (:isreal, :iszero)
     @eval Base.$f(v::TupleVec) = all(map($f, _t(v)))
@@ -72,6 +74,8 @@ for f in (:+, :-, :real, :imag, :complex, :conj, :float)
 end
 Base.:*(v::AdjointTupleVec, a::Number) = (a' * parent(v))'
 Base.:*(a::Number, v::AdjointTupleVec) = (parent(v) * a')'
+Base.:/(v::AdjointTupleVec, a::Number) = (a' \ parent(v))'
+Base.:\(a::Number, v::AdjointTupleVec) = (parent(v) / a')'
 
 for f in (:isreal, :iszero)
     @eval Base.$f(v::AdjointTupleVec) = $f(parent(v))

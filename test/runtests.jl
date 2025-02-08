@@ -39,7 +39,8 @@ end
     @test_throws MethodError zero(typeof(v))
     @test zero(typeof(TupleVec(3, 4.0f0))) === TupleVec(0, 0.0f0)
     @test zero(typeof(TupleVec(a=3, b=4.0f0))) === TupleVec(a = 0, b = 0.0f0)
-    @test 2v == TupleVec(6, [8, 10], 12.0)
+    @test 2v == v*2 == TupleVec(6, [8, 10], 12.0)
+    @test v/2 == 2\v == TupleVec(3/2,[2,5/2],3.0)
     @test v + w == TupleVec(4.2f0, [5, 7], 7.0)
     @test v - w == TupleVec(1.8f0, [3, 3], 5.0)
     @test +v == v == real(v) == conj(v) == float(v) == complex(v)
@@ -82,7 +83,9 @@ end
     @test_throws MethodError zero(typeof(v'))
     @test zero(typeof(TupleVec(3, 4.0f0)')) === TupleVec(0, 0.0f0)'
     @test zero(typeof(TupleVec(a=3, b=4.0f0)')) === TupleVec(a = 0, b = 0.0f0)'
-    @test 2v' == (2v)'
+    z = 2+3im
+    @test z*v' == v'*z == (z'*v)'
+    @test v'/z == z\v' == (v/z')'
     @test v' + w' == (v + w)'
     @test v' - w' == (v - w)'
     @test +v' == v' == real(v') == conj(v') == float(v') == complex(v')
