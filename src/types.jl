@@ -18,6 +18,10 @@ _t(v::TupleVec) = getfield(v, :t)
 @inline Base.getproperty(v::TupleVec, name::Symbol) = getproperty(_t(v), name)
 @inline Base.getproperty(v::TupleVec, name::Symbol, order::Symbol) = getproperty(_t(v), name, order)
 
+for comp in (:(==), :isequal)
+    @eval Base.$comp(v::TupleVec, w::TupleVec) = $comp(_t(v), _t(w))
+end
+
 ##############################################################
 # adjoint = the dual of a tuple vec (the linear operator that performs a dot product)
 
@@ -35,5 +39,9 @@ Base.NamedTuple(a::AdjointTupleVec) = map(adjoint, NamedTuple(parent(a)))
 # for named tuples and destructuring
 @inline Base.getproperty(a::AdjointTupleVec, name::Symbol) = getproperty(_t(parent(a)), name)'
 @inline Base.getproperty(a::AdjointTupleVec, name::Symbol, order::Symbol) = getproperty(_t(parent(a)), name, order)'
+
+for comp in (:(==), :isequal)
+    @eval Base.$comp(v::AdjointTupleVec, w::AdjointTupleVec) = $comp(parent(v), parent(w))
+end
 
 ##############################################################

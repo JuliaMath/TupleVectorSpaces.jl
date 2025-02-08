@@ -6,19 +6,17 @@ using LinearAlgebra
 Base.zero(v::TupleVec) = TupleVec(map(zero, _t(v)))
 Base.zero(::Type{TupleVec{T}}) where {T<:Tuple} =
     TupleVec(map(zero, fieldtypes(T)))
+Base.zero(::Type{TupleVec{NamedTuple{N, T}}}) where {N, T} =
+    TupleVec(NamedTuple{N}(map(zero, fieldtypes(T))))
 
 for op in (:+, :-)
     @eval Base.$op(v::TupleVec, w::TupleVec) = TupleVec(map($op, _t(v), _t(w)))
 end
-for f in (:+, :-, :real, :imag, :complex, :conj, :float, :big)
+for f in (:+, :-, :real, :imag, :complex, :conj, :float)
     @eval Base.$f(v::TupleVec) = TupleVec(map($f, _t(v)))
 end
 Base.:*(v::TupleVec, a::Number) = TupleVec(map(x -> x*a, _t(v)))
 Base.:*(a::Number, v::TupleVec) = TupleVec(map(x -> a*x, _t(v)))
-
-for comp in (:(==), :isequal)
-    @eval Base.$comp(v::TupleVec, w::TupleVec) = $comp(_t(v), _t(w))
-end
 
 for f in (:isreal, :iszero)
     @eval Base.$f(v::TupleVec) = all(map($f, _t(v)))
@@ -63,21 +61,17 @@ Base.:*(a::AdjointTupleVec, v::TupleVec) = dot(parent(a), v)
 # vector-space operations on adjoint vectors,
 # (delegated to parent vectors)
 
-Base.zero(a::AdjointTupleVec) = parent(a)'
+Base.zero(a::AdjointTupleVec) = zero(parent(a))'
 Base.zero(::Type{AdjointTupleVec{T}}) where {T} = zero(T)'
 
 for op in (:+, :-)
     @eval Base.$op(v::AdjointTupleVec, w::AdjointTupleVec) = $op(parent(v), parent(w))'
 end
-for f in (:+, :-, :real, :imag, :complex, :conj, :float, :big)
+for f in (:+, :-, :real, :imag, :complex, :conj, :float)
     @eval Base.$f(v::AdjointTupleVec) = $f(parent(v))'
 end
 Base.:*(v::AdjointTupleVec, a::Number) = (a' * parent(v))'
 Base.:*(a::Number, v::AdjointTupleVec) = (parent(v) * a')'
-
-for comp in (:(==), :isequal)
-    @eval Base.$comp(v::AdjointTupleVec, w::AdjointTupleVec) = $comp(parent(v), parent(w))
-end
 
 for f in (:isreal, :iszero)
     @eval Base.$f(v::AdjointTupleVec) = $f(parent(v))

@@ -41,7 +41,7 @@ Base.map(f, v1::TupleVec, v2::TupleVec, vs::TupleVec...) = TupleVec(map((x...) -
 # iteration on adjoint vectors
 
 for f in (:length, :eltype)
-    @eval Base.$f(a::AdjointTupleVec) = f(parent(a))
+    @eval Base.$f(a::AdjointTupleVec) = $f(parent(a))
 end
 
 # todo: support iteration on AdjointTupleVec?
