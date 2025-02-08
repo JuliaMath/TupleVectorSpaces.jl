@@ -1,5 +1,8 @@
 module TupleVecs
+export TupleVec
 
-# Write your package code here.
+include("types.jl")
+include("linalg.jl")
+include("iteration.jl")
 
 end
