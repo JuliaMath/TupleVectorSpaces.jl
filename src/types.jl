@@ -33,7 +33,7 @@ To get back the original `tuple` from `v = TupleVec(tuple)`, you can call `Tuple
 `tuple` is a `NamedTuple`, call `NamedTuple(v)` to get the named tuple back; alternatively,
 for named tuples, you can access fields `tuple.field` directly as `v.field`.
 
-Example:
+# Examples:
 ```jldoctest
 julia> v = TupleVec(1, [2,3,4], [5 6; 7 8]) # tuple of a scalar, a `Vector`, and a `Matrix`
 TupleVec(1, [2, 3, 4], [5 6; 7 8])
@@ -44,7 +44,7 @@ TupleVec(2, [4, 6, 8], [10 12; 14 16])
 julia> v - v
 TupleVec(0, [0, 0, 0], [0 0; 0 0])
 
-julia> collect(v)
+julia> collect(v) # the result of iterating over v
 8-element Vector{Int64}:
  1
  2
