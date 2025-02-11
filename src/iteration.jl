@@ -35,7 +35,9 @@ Base.map(f, v::TupleVec) = TupleVec(map(x -> map(f, x), _t(v)))
 Base.map(f, v::TupleVec, w::TupleVec) = TupleVec(map((x,y) -> map(f, x, y), _t(v), _t(w)))
 Base.map(f, v1::TupleVec, v2::TupleVec, vs::TupleVec...) = TupleVec(map((x...) -> map(f, x...), map(v -> _t(v), (v1, v2, vs...))...))
 
-# default broadcast uses "collect" … change this?
+##############################################################
+# broadcasting: treat as "atom", not container:
+Base.broadcastable(v::TupleVec) = Ref(v)
 
 ##############################################################
 # iteration on adjoint vectors
@@ -49,5 +51,11 @@ end
 ##############################################################
 # todo: inverse of vec — reshaping a vector into a TupleVec
 # (given an instance, or a type if size information is in the type)
+
+##############################################################
+# todo: support indexing
+
+Base.ndims(v::TupleVec) = 1 # needed by DifferentialEquations
+Base.ndims(v::Type{<:TupleVec}) = 1 # needed by DifferentialEquations
 
 ##############################################################
