@@ -105,6 +105,7 @@ end
 end
 
 @testset "iteration" begin
+    @test ndims(v) == ndims(typeof(v)) == 1
     @test length(v) == 4 == length(v')
     @test length(TupleVec()) == length(TupleVec(())) == length(TupleVec((;))) == 0
     @test eltype(v) == Float64 == eltype(v')
