@@ -1,6 +1,6 @@
-# TupleVecs
+# TupleVectorSpaces
 
-[![Build Status](https://github.com/JuliaMath/TupleVecs.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaMath/TupleVecs.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Build Status](https://github.com/JuliaMath/TupleVectorSpaces.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaMath/TupleVectorSpaces.jl/actions/workflows/CI.yml?query=branch%3Amain)
 
 This Julia package allows you to take a tuple of objects and treat it as a "vector", in the sense of an [abstract vector space](https://en.wikipedia.org/wiki/Vector_space) (*not* a 1d array), as long as the components are vectors — that is, as long as they support addition, subtraction, and multiplication by scalars.  Technically, this is known as a [direct sum](https://en.wikipedia.org/wiki/Direct_sum) of vector spaces, and is represented in this package by the `TupleVec` type.
 

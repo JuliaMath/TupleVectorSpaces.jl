@@ -1,4 +1,4 @@
-using TupleVecs, LinearAlgebra, Test
+using TupleVectorSpaces, LinearAlgebra, Test
 
 v = TupleVec(3,[4,5],6.0)
 w = TupleVec(1.2f0,[1,2],1)
